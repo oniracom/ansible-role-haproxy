@@ -40,8 +40,14 @@ defaults
 
 frontend {{ haproxy_frontend_name }}
     bind {{ haproxy_frontend_bind_address }}:{{ haproxy_frontend_port }}
-    mode {{ haproxy_frontend_mode }}
+    # mode {{ haproxy_frontend_mode }}
+    acl letsencrypt-acl path_beg /.well-known/acme-challenge/
+    use_backend letsencrypt-backend if letsencrypt-acl
     default_backend {{ haproxy_backend_name }}
+
+# LE Backend
+backend letsencrypt-backend
+    server letsencrypt 127.0.0.1:8888
 
 backend {{ haproxy_backend_name }}
     mode {{ haproxy_backend_mode }}
