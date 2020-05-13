@@ -43,7 +43,7 @@ frontend {{ haproxy_frontend_name }}
     # mode {{ haproxy_frontend_mode }}
 
     # This is our new config that listens on port 443 for SSL connections
-    bind *:443 ssl crt /etc/letsencrypt/live/jackjohnsonmusic.com/fullchain.pem
+    bind *:443 ssl crt /etc/ssl/jackjohnsonmusic.oniricdev.com/jackjohnsonmusic.oniricdev.com.pem
     
     # Redirect if HTTPS is *not* used
     redirect scheme https code 301 if !{ ssl_fc }
